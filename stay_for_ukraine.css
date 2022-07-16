@@ -1,0 +1,59 @@
+/* stay for ukraine */
+
+a.popup-modal {
+  display: none;
+}
+
+.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-image: url("preloader.gif");
+  background-repeat: no-repeat;
+  background-color: #f1f2f3;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+#frame1 {
+  display: block;
+}
+
+#frame2 {
+  display: none;
+}
+
+#daysOfWar {
+  color: red;
+  font-weight: bolder;
+  font-size: xx-large;
+}
+
+.mfp-content {
+	background: #fff !important;
+	padding: 40px !important;
+	border-radius: 20px !important;
+	width: 70% !important;
+}
+
+.mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content {
+	width: 70% !important;
+	cursor: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .mfp-content {
+    background: #fff !important;
+    padding: 18px !important;
+    border-radius: 10px !important;
+    width: 93% !important;
+    font-size: 18px;
+  }
+}
+
+#mfp-modal-popup {
+  display: none;
+}

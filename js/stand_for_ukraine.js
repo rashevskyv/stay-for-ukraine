@@ -13,10 +13,10 @@ $(function () {
     document.getElementById("sfu-modal-popup").style.display = "none";
     document.getElementById("sfu-wrap").style.display = "none";
     document.getElementById("sfu-bg").style.display = "none";
-    $("body").removeClass("hide-scroll");
+    $("html").removeClass("hide-scroll");
   }
 
-  $("body").addClass("hide-scroll");
+  $("html").addClass("hide-scroll");
 
   function getCookie(name) {
     let matches = document.cookie.match(

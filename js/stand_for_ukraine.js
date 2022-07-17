@@ -3,11 +3,13 @@ $(function () {
   let scenario2_link = "https://customfw.xyz/" + scenario2_sublink;
   let scenario1_cookie = "support-ukraine";
   let scenario2_cookie = "support-russia";
-  let days_of_cookie_live = 4;
+  let days_of_cookie_live_1st_scenario = 4;
+  let days_of_cookie_live_2nd_scenario = 7;
 
   let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
 
-  let date = new Date(Date.now() + 86400e3 * days_of_cookie_live).toUTCString();
+  let date_1st_scenario = new Date(Date.now() + 86400e3 * days_of_cookie_live_1st_scenario).toUTCString();
+  let date_2nd_scenario = new Date(Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario).toUTCString();
 
   function closePopup() {
     document.getElementById("sfu-modal-popup").style.display = "none";
@@ -78,7 +80,7 @@ $(function () {
 
   $(document).on("click", ".popup-modal-support-ukraine", function (e) {
     e.preventDefault();
-    document.cookie = "support-ukraine=true; expires=" + date;
+    document.cookie = "support-ukraine=true; expires=" + date_1st_scenario;
 
     document.getElementById("frame1").style.display = "none";
     document.getElementById("frame2").style.display = "block";
@@ -88,7 +90,7 @@ $(function () {
 
   $(document).on("click", ".popup-modal-support-russia", function (e) {
     e.preventDefault();
-    document.cookie = "support-russia=true; expires=" + date;
+    document.cookie = "support-russia=true; expires=" + date_2nd_scenario;
     window.location.replace(scenario2_link);
   });
 

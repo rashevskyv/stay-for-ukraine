@@ -5,6 +5,8 @@ $(function () {
   let scenario2_cookie = "support-russia";
   let days_of_cookie_live = 4;
 
+  let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
+
   let date = new Date(Date.now() + 86400e3 * days_of_cookie_live).toUTCString();
 
   function closePopup() {
@@ -15,7 +17,6 @@ $(function () {
   }
 
   $("body").addClass("hide-scroll");
-
 
   function getCookie(name) {
     let matches = document.cookie.match(
@@ -40,7 +41,12 @@ $(function () {
     });
   }
 
-  addPopup()
+  addPopup();
+  $("#ukranian-flag").append(
+    "<div class='ukrane-flag_container'><a class='ukrane-flag-ribbon' href='" +
+      openSiteOnFlagClick +
+      "' target='_blank' rel='noopener noreferrer'></a></div>"
+  );
 
   // calculate height of popup
   $(function () {

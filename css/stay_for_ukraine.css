@@ -97,7 +97,7 @@ a.popup-modal {
 
 .sfu-inline-holder .sfu-content,
 .sfu-ajax-holder .sfu-content {
-  width: 70% !important;
+  width: 70%;
   cursor: auto;
 }
 
@@ -118,9 +118,8 @@ a:hover, a:active {
 
 @media screen and (max-width: 600px) {
   .sfu-content {
-    background: #fff !important;
     padding: 18px !important;
     border-radius: 10px !important;
-    width: 93% !important;
+    width: 85% !important;
   }
 }

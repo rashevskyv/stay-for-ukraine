@@ -73,6 +73,8 @@ $(function () {
 
     document.getElementById("frame1").style.display = "none";
     document.getElementById("frame2").style.display = "block";
+
+    $("#sfu-wrap").animate({ scrollTop: 0 }, "fast");
   });
 
   $(document).on("click", ".popup-modal-support-russia", function (e) {
@@ -183,8 +185,9 @@ function addPopup() {
                     ></strong
                   >
                 </p>
-                <!-- first link, set scenario1_cookie  -->
-                <!-- first link, set scenario1_cookie  -->
+                <!-- //first link, set scenario1_cookie  -->
+
+                <!-- second link, set scenario2_cookie  -->
                 <p>
                   <strong>
                     <a class="popup-modal-support-ukraine" href="#"
@@ -192,7 +195,7 @@ function addPopup() {
                     ></strong
                   >
                 </p>
-                <!-- first link, set scenario1_cookie  -->
+                <!-- //first link, set scenario2_cookie  -->
               </div>
             </div>
 

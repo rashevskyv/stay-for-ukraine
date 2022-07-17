@@ -1,4 +1,4 @@
-/* stay for ukraine */
+stay for ukraine
 
 a.popup-modal {
   display: none;
@@ -32,28 +32,95 @@ a.popup-modal {
   font-size: xx-large;
 }
 
-.mfp-content {
-	background: #fff !important;
-	padding: 40px !important;
-	border-radius: 20px !important;
-	width: 70% !important;
+.sfu-bg {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1042;
+  overflow: hidden;
+  position: fixed;
+  background: #000;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 
-.mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content {
-	width: 70% !important;
-	cursor: auto;
+.sfu-wrap {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1043;
+  position: fixed;
+  outline: none !important;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden auto
+}
+
+#sfu-modal-popup {
+  display: block;
+}
+
+.sfu-container {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  padding: 0 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.sfu-container::before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.sfu-content {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+  text-align: left;
+  z-index: 1045;
+  background: #fff !important;
+  padding: 40px !important;
+  border-radius: 20px !important;
+  width: 70% !important;
+  font-size: 18px;
+}
+
+.sfu-inline-holder .sfu-content,
+.sfu-ajax-holder .sfu-content {
+  width: 70% !important;
+  cursor: auto;
+}
+
+.hide-scroll {
+  overflow: hidden;
+}
+
+a {
+  color: #52adc8;
+  text-decoration: none !important;
+}
+
+a:hover, a:active {
+  color: #3e8296;
+  outline: 0;
+  text-decoration: none !important;
 }
 
 @media screen and (max-width: 600px) {
-  .mfp-content {
+  .sfu-content {
     background: #fff !important;
     padding: 18px !important;
     border-radius: 10px !important;
     width: 93% !important;
-    font-size: 18px;
   }
-}
-
-#mfp-modal-popup {
-  display: none;
 }

@@ -14,6 +14,9 @@ $(function () {
     $("body").removeClass("hide-scroll");
   }
 
+  $("body").addClass("hide-scroll");
+
+
   function getCookie(name) {
     let matches = document.cookie.match(
       new RegExp(

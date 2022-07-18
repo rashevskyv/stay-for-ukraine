@@ -1,4 +1,17 @@
-$(function () {
+function ready(callback) {
+  // in case the document is already rendered
+  if (document.readyState != "loading") callback();
+  // modern browsers
+  else if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", callback);
+  // IE <= 8
+  else
+    document.attachEvent("onreadystatechange", function () {
+      if (document.readyState == "complete") callback();
+    });
+}
+
+ready(() => {
   let scenario2_sublink = "support-russia";
   let scenario2_link = "https://customfw.xyz/" + scenario2_sublink;
   let scenario1_cookie = "support-ukraine";
@@ -8,17 +21,22 @@ $(function () {
 
   let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
 
-  let date_1st_scenario = new Date(Date.now() + 86400e3 * days_of_cookie_live_1st_scenario).toUTCString();
-  let date_2nd_scenario = new Date(Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario).toUTCString();
+  let date_1st_scenario = new Date(
+    Date.now() + 86400e3 * days_of_cookie_live_1st_scenario
+  ).toUTCString();
+  let date_2nd_scenario = new Date(
+    Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario
+  ).toUTCString();
 
   function closePopup() {
-    document.getElementById("sfu-modal-popup").style.display = "none";
-    document.getElementById("sfu-wrap").style.display = "none";
-    document.getElementById("sfu-bg").style.display = "none";
-    $("html").removeClass("hide-scroll");
+    document.querySelector("#sfu-modal-popup").style.display = "none";
+    document.querySelector("#sfu-wrap").style.display = "none";
+    document.querySelector("#sfu-bg").style.display = "none";
+
+    document.querySelector("html").classList.remove("hide-scroll");
   }
 
-  $("html").addClass("hide-scroll");
+  document.querySelector("html").classList.add("hide-scroll");
 
   function getCookie(name) {
     let matches = document.cookie.match(
@@ -31,42 +49,68 @@ $(function () {
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
 
-  //preloader stuff
-  if (getCookie(scenario1_cookie) || getCookie(scenario1_cookie)) {
-    document.getElementById("preloader").style.display = "none";
-  } else {
-    $(window).on("load", function () {
-      $(".preloader").fadeOut();
-      if (document.getElementById("preloader")) {
-        document.getElementById("preloader").style.display = "none";
+  function fadeOutEffect(target) {
+    var fadeTarget = target;
+    var fadeEffect = setInterval(function () {
+      if (!fadeTarget.style.opacity) {
+        fadeTarget.style.opacity = 1;
       }
-    });
+      if (fadeTarget.style.opacity > 0) {
+        fadeTarget.style.opacity -= 0.05;
+      } else {
+        clearInterval(fadeEffect);
+        document.querySelector("#preloader").style.display = "none";
+      }
+    }, 5);
   }
 
-  addPopup();
-  $("#ukranian-flag").append(
-    "<div class='ukrane-flag_container'><a class='ukrane-flag-ribbon' href='" +
-      openSiteOnFlagClick +
-      "' target='_blank' rel='noopener noreferrer'></a></div>"
-  );
-
-  // calculate height of popup
-  $(function () {
-    $(".sfu-inline-holder").height(
-      ($(window).height() - $("#sfu-modal-popup").height()) / 2 - 60
-    );
-    $(window).resize(function () {
-      $(".sfu-inline-holder").height(
-        ($(window).height() - $("#sfu-modal-popup").height()) / 2 - 60
-      );
-    });
+  //preloader stuff
+  ready(() => {
+    if (getCookie(scenario1_cookie) || getCookie(scenario1_cookie)) {
+      document.querySelector("#preloader").style.display = "none";
+    } else {
+      fadeOutEffect(document.querySelector("#preloader"));
+    }
   });
 
-  if (getCookie(scenario1_cookie)) {
-    if (document.getElementById("popup-caller")) {
-      document.getElementById("frame1").style.display = "none";
-    }
-  }
+  addPopup();
+
+  // render flag
+  let flag =
+    "<div class='ukrane-flag_container'><a class='ukrane-flag-ribbon' href='" +
+    openSiteOnFlagClick +
+    "' target='_blank' rel='noopener noreferrer'></a></div>";
+  document.querySelector("#ukranian-flag").innerHTML = flag;
+
+  // proper align popup on vertical
+  let calculatePaddingHeight =
+    (window.innerHeight -
+      document.querySelector("#sfu-modal-popup").offsetHeight) /
+      2 -
+    60;
+  let paddingHeight = "height: " + calculatePaddingHeight + "px";
+  document
+    .querySelector(".sfu-inline-holder")
+    .setAttribute("style", paddingHeight);
+
+  // proper align popup on vertical if page resized
+  window.addEventListener(
+    "resize",
+    function (event) {
+      let calculatePaddingHeight =
+        (window.innerHeight -
+          document.querySelector("#sfu-modal-popup").offsetHeight) /
+          2 -
+        60;
+      let paddingHeight = "height: " + calculatePaddingHeight + "px";
+      document
+        .querySelector(".sfu-inline-holder")
+        .setAttribute("style", paddingHeight);
+    },
+    true
+  );
+
+  // if cookie for scenario2 exist and you are not on the scenario2_sublink page, close popup
   if (
     !window.location.href.includes(scenario2_sublink) &&
     getCookie(scenario2_cookie)
@@ -74,31 +118,41 @@ $(function () {
     window.location.replace(scenario2_link);
     closePopup();
   }
+  // close popup on scenario2_sublink page
   if (window.location.href.includes(scenario2_sublink)) {
     closePopup();
   }
 
-  $(document).on("click", ".popup-modal-support-ukraine", function (e) {
-    e.preventDefault();
-    document.cookie = "support-ukraine=true; expires=" + date_1st_scenario;
+  // cookie stuff. Put cookie according to choosed scenario
+  // add cookie scenario1_cookie if pressed 2nd link on 1st frame
+  document
+    .querySelector(".popup-modal-support-ukraine")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      document.cookie =
+        scenario1_cookie + "=true; expires=" + date_1st_scenario;
+      // change frame 1 to frame 2 after link 2 on 1st frame was pressed
+      document.getElementById("frame1").style.display = "none";
+      document.getElementById("frame2").style.display = "block";
+    });
+  // add cookie scenario2_cookie if pressed 1st link on 1st frame
+  document
+    .querySelector(".popup-modal-support-russia")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      document.cookie =
+        scenario2_cookie + "=true; expires=" + date_2nd_scenario;
+      window.location.replace(scenario2_link);
+    });
+  // close popup
+  document
+    .querySelector(".popup-modal-close")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      closePopup();
+    });
 
-    document.getElementById("frame1").style.display = "none";
-    document.getElementById("frame2").style.display = "block";
-
-    $("#sfu-wrap").animate({ scrollTop: 0 }, "fast");
-  });
-
-  $(document).on("click", ".popup-modal-support-russia", function (e) {
-    e.preventDefault();
-    document.cookie = "support-russia=true; expires=" + date_2nd_scenario;
-    window.location.replace(scenario2_link);
-  });
-
-  $(document).on("click", ".popup-modal-close", function (e) {
-    e.preventDefault();
-    closePopup();
-  });
-
+  // how much days were left after war start (2/24/2022)
   function getNumberOfDays() {
     const date1 = new Date("2/24/2022");
     const date2 = new Date();
@@ -108,9 +162,11 @@ $(function () {
     return diffInDays;
   }
 
-  document.getElementById("daysOfWar").textContent = getNumberOfDays();
+  // add how much days were left from war was start to span with id #daysOfWar
+  document.querySelector("#daysOfWar").textContent = getNumberOfDays();
 
-  $(document).ready(function () {
+  // check if you had scenario1_cookie OR you on the scenario2_sublink page, close popup
+  ready(() => {
     if (
       getCookie(scenario1_cookie) ||
       window.location.href.includes(scenario2_sublink)
@@ -122,7 +178,7 @@ $(function () {
 });
 
 function addPopup() {
-  $("#stay-for-ukraine-popup").append(`
+    let popup_block = `
   
   <div id="sfu-bg" class="sfu-bg sfu-ready"></div>
     <div id="sfu-wrap" class="sfu-wrap sfu-auto-cursor sfu-ready">
@@ -292,5 +348,6 @@ function addPopup() {
       </div>
     </div>
     
-    `);
+    `;
+  document.querySelector("#stay-for-ukraine-popup").innerHTML = popup_block;
 }

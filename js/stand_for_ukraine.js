@@ -18,6 +18,7 @@ ready(() => {
   let scenario2_cookie = "support-russia";
   let days_of_cookie_live_1st_scenario = 4;
   let days_of_cookie_live_2nd_scenario = 7;
+  let domain = "domain=customfw.xyz"
 
   let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
 
@@ -130,7 +131,7 @@ ready(() => {
     .addEventListener("click", (e) => {
       e.preventDefault();
       document.cookie =
-        scenario1_cookie + "=true; expires=" + date_1st_scenario;
+        scenario1_cookie + "=true; expires=" + date_1st_scenario + ";" + domain;
       // change frame 1 to frame 2 after link 2 on 1st frame was pressed
       document.getElementById("frame1").style.display = "none";
       document.getElementById("frame2").style.display = "block";
@@ -141,7 +142,7 @@ ready(() => {
     .addEventListener("click", (e) => {
       e.preventDefault();
       document.cookie =
-        scenario2_cookie + "=true; expires=" + date_2nd_scenario;
+        scenario2_cookie + "=true; expires=" + date_2nd_scenario + ";" + domain;
       window.location.replace(scenario2_link);
     });
   // close popup

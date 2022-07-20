@@ -16,18 +16,25 @@ ready(() => {
   let scenario2_link = "https://customfw.xyz/" + scenario2_sublink;
   let scenario1_cookie = "support-ukraine";
   let scenario2_cookie = "support-russia";
-  let days_of_cookie_live_1st_scenario = 4;
-  let days_of_cookie_live_2nd_scenario = 7;
-  let domain = "domain=customfw.xyz"
+  let days_of_cookie_live_1st_scenario = 7;
+  let days_of_cookie_live_2nd_scenario = 3;
+  let locationCameFrom = window.location;
+  let domain = "domain=customfw.xyz; path=/; samesite";
 
   let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
 
+  const day_war_began = new Date("2/24/2022");
+  const current_date = new Date();
   let date_1st_scenario = new Date(
     Date.now() + 86400e3 * days_of_cookie_live_1st_scenario
   ).toUTCString();
   let date_2nd_scenario = new Date(
     Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario
   ).toUTCString();
+
+  function moveToPage(location) {
+    window.location.replace(location);
+  }
 
   function closePopup() {
     document.querySelector("#sfu-modal-popup").style.display = "none";
@@ -97,7 +104,7 @@ ready(() => {
   // proper align popup on vertical if page resized
   window.addEventListener(
     "resize",
-    function (event) {
+    function () {
       let calculatePaddingHeight =
         (window.innerHeight -
           document.querySelector("#sfu-modal-popup").offsetHeight) /
@@ -116,7 +123,7 @@ ready(() => {
     !window.location.href.includes(scenario2_sublink) &&
     getCookie(scenario2_cookie)
   ) {
-    window.location.replace(scenario2_link);
+    moveToPage(scenario2_link);
     closePopup();
   }
   // close popup on scenario2_sublink page
@@ -143,7 +150,7 @@ ready(() => {
       e.preventDefault();
       document.cookie =
         scenario2_cookie + "=true; expires=" + date_2nd_scenario + ";" + domain;
-      window.location.replace(scenario2_link);
+      moveToPage(scenario2_link);
     });
   // close popup
   document
@@ -155,10 +162,8 @@ ready(() => {
 
   // how much days were left after war start (2/24/2022)
   function getNumberOfDays() {
-    const date1 = new Date("2/24/2022");
-    const date2 = new Date();
     const oneDay = 1000 * 60 * 60 * 24;
-    const diffInTime = date2.getTime() - date1.getTime();
+    const diffInTime = current_date.getTime() - day_war_began.getTime();
     const diffInDays = Math.round(diffInTime / oneDay);
     return diffInDays;
   }
@@ -178,8 +183,36 @@ ready(() => {
   });
 });
 
+if (document.querySelector("#i_regret")) {
+  document
+    .querySelector("#i_regret")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      if (getCookie(scenario1_cookie)){
+        document.cookie = scenario1_cookie + "=none" + "; expires=" + date1
+        moveToPage(getCookie(scenario1_cookie))
+      }
+      if (getCookie(scenario2_cookie)){
+        document.cookie = scenario2_cookie + "=none" + "; expires=" + date1
+        moveToPage(getCookie(scenario2_cookie));
+      }
+      // document.cookie =
+      //   scenario1_cookie + "=; Max-Age=0; path=/; domain=" + location.hostname;
+      // document.cookie =
+      //   scenario2_cookie + "=; Max-Age=0; path=/; domain=" + location.hostname;
+    });
+}
+
+// function iRegret() {
+//   let regret_message = `
+// <center><a id="i_regret">Я понял, что был не прав и больше не поддерживаю захватническую войну в соседнем государстве</a></center>
+// {: .notice--success}
+// `;
+// document.querySelector("#iregreat").innerHTML = regret_message;
+// }
+
 function addPopup() {
-    let popup_block = `
+  let popup_block = `
   
   <div id="sfu-bg" class="sfu-bg sfu-ready"></div>
     <div id="sfu-wrap" class="sfu-wrap sfu-auto-cursor sfu-ready">

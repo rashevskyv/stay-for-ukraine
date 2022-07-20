@@ -19,10 +19,11 @@ ready(() => {
   let days_of_cookie_live_1st_scenario = 7;
   let days_of_cookie_live_2nd_scenario = 3;
   let locationCameFrom = window.location;
-  let domain = "domain=customfw.xyz; path=/; samesite";
+  let domain = "domain=customfw.xyz; path=/; samesite=strict";
 
   let openSiteOnFlagClick = "https://customfw.xyz/support-ukraine";
 
+  // time vars awnd constants
   const day_war_began = new Date("2/24/2022");
   const current_date = new Date();
   let date_1st_scenario = new Date(
@@ -36,6 +37,7 @@ ready(() => {
     window.location.replace(location);
   }
 
+  // function for close popup
   function closePopup() {
     document.querySelector("#sfu-modal-popup").style.display = "none";
     document.querySelector("#sfu-wrap").style.display = "none";
@@ -45,6 +47,22 @@ ready(() => {
   }
 
   document.querySelector("html").classList.add("hide-scroll");
+
+  // cookie functions
+  function addCookie(name) {
+    document.cookie =
+      name +
+      "=" +
+      locationCameFrom +
+      "; expires=" +
+      date_2nd_scenario +
+      ";" +
+      domain;
+  }
+
+  function removeCookie(name) {
+    document.cookie = name + "=; max-age=-1;" + domain;
+  }
 
   function getCookie(name) {
     let matches = document.cookie.match(
@@ -56,6 +74,7 @@ ready(() => {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
+  // // cookie functions
 
   function fadeOutEffect(target) {
     var fadeTarget = target;
@@ -137,8 +156,7 @@ ready(() => {
     .querySelector(".popup-modal-support-ukraine")
     .addEventListener("click", (e) => {
       e.preventDefault();
-      document.cookie =
-        scenario1_cookie + "=true; expires=" + date_1st_scenario + ";" + domain;
+      addCookie(scenario1_cookie);
       // change frame 1 to frame 2 after link 2 on 1st frame was pressed
       document.getElementById("frame1").style.display = "none";
       document.getElementById("frame2").style.display = "block";
@@ -148,8 +166,7 @@ ready(() => {
     .querySelector(".popup-modal-support-russia")
     .addEventListener("click", (e) => {
       e.preventDefault();
-      document.cookie =
-        scenario2_cookie + "=true; expires=" + date_2nd_scenario + ";" + domain;
+      addCookie(scenario2_cookie);
       moveToPage(scenario2_link);
     });
   // close popup
@@ -181,35 +198,28 @@ ready(() => {
       closePopup();
     }
   });
-});
 
-if (document.querySelector("#i_regret")) {
-  document
-    .querySelector("#i_regret")
-    .addEventListener("click", (e) => {
+  let regret_message = `
+  <center class="notice--success"><a id="i_regret" style="cursor: pointer;">Я понял, что был не прав и больше не поддерживаю захватническую войну в соседнем государстве</a></center>
+  `;
+  if (document.querySelector("#regret")) {
+    document.querySelector("#regret").innerHTML = regret_message;
+
+    document.getElementById("i_regret").addEventListener("click", (e) => {
       e.preventDefault();
-      if (getCookie(scenario1_cookie)){
-        document.cookie = scenario1_cookie + "=none" + "; expires=" + date1
-        moveToPage(getCookie(scenario1_cookie))
+      if (getCookie(scenario1_cookie)) {
+        let page_to_move = getCookie(scenario1_cookie)
+        removeCookie(scenario1_cookie);
+        moveToPage(page_to_move);
       }
-      if (getCookie(scenario2_cookie)){
-        document.cookie = scenario2_cookie + "=none" + "; expires=" + date1
-        moveToPage(getCookie(scenario2_cookie));
+      if (getCookie(scenario2_cookie)) {
+        let page_to_move = getCookie(scenario2_cookie)
+        removeCookie(scenario2_cookie);
+        moveToPage(page_to_move);
       }
-      // document.cookie =
-      //   scenario1_cookie + "=; Max-Age=0; path=/; domain=" + location.hostname;
-      // document.cookie =
-      //   scenario2_cookie + "=; Max-Age=0; path=/; domain=" + location.hostname;
     });
-}
-
-// function iRegret() {
-//   let regret_message = `
-// <center><a id="i_regret">Я понял, что был не прав и больше не поддерживаю захватническую войну в соседнем государстве</a></center>
-// {: .notice--success}
-// `;
-// document.querySelector("#iregreat").innerHTML = regret_message;
-// }
+  }
+});
 
 function addPopup() {
   let popup_block = `

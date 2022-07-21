@@ -1,10 +1,7 @@
 function ready(callback) {
-  // in case the document is already rendered
   if (document.readyState != "loading") callback();
-  // modern browsers
   else if (document.addEventListener)
     document.addEventListener("DOMContentLoaded", callback);
-  // IE <= 8
   else
     document.attachEvent("onreadystatechange", function () {
       if (document.readyState == "complete") callback();
@@ -74,8 +71,8 @@ ready(() => {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
-  // // cookie functions
 
+  // fade out animation
   function fadeOutEffect(target) {
     var fadeTarget = target;
     var fadeEffect = setInterval(function () {
@@ -91,7 +88,7 @@ ready(() => {
     }, 5);
   }
 
-  //preloader stuff
+  // preloader stuff
   ready(() => {
     if (getCookie(scenario1_cookie) || getCookie(scenario1_cookie)) {
       document.querySelector("#preloader").style.display = "none";
@@ -100,6 +97,7 @@ ready(() => {
     }
   });
 
+  // add main popup
   addPopup();
 
   // render flag
@@ -160,6 +158,8 @@ ready(() => {
       // change frame 1 to frame 2 after link 2 on 1st frame was pressed
       document.getElementById("frame1").style.display = "none";
       document.getElementById("frame2").style.display = "block";
+      // scroll to top of the second frame
+      document.getElementById("sfu-wrap").scrollTo({ top: 0, behavior: 'smooth' }); 
     });
   // add cookie scenario2_cookie if pressed 1st link on 1st frame
   document
@@ -204,7 +204,6 @@ ready(() => {
   `;
   if (document.querySelector("#regret")) {
     document.querySelector("#regret").innerHTML = regret_message;
-
     document.getElementById("i_regret").addEventListener("click", (e) => {
       e.preventDefault();
       if (getCookie(scenario1_cookie)) {

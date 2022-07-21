@@ -15,7 +15,7 @@
     <!-- Script for removidng cookies every page reload -->
     <script>
       function removeCookie(name) {
-        document.cookie = name + "=; max-age=-1;" + domain;
+        document.cookie = name + "=; max-age=-1; domain=customfw.xyz; path=/; samesite=strict";
       }
 
       function getCookie(name) {

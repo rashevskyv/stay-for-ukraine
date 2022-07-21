@@ -11,10 +11,31 @@
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/stay_for_ukraine.css" />
     <!--// stay for Ukraine css and js -->
+
+    <!-- Script for removidng cookies every page reload -->
+    <script>
+      function removeCookie(name) {
+        document.cookie = name + "=; max-age=-1;" + domain;
+      }
+
+      function getCookie(name) {
+        let matches = document.cookie.match(
+          new RegExp(
+            "(?:^|; )" +
+              name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+              "=([^;]*)"
+          )
+        );
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+      if (getCookie("support-ukraine")) removeCookie("support-ukraine");
+      if (getCookie("support-russia")) removeCookie("support-russia");
+    </script>
+    <!-- // Script for removidng cookies every page reload -->
   </head>
 
   <body>
-
     <!-- preloader -->
     <div id="preloader" class="preloader"></div>
     <!-- // preloader -->

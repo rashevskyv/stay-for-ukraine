@@ -15,6 +15,7 @@ ready(() => {
   let scenario2_cookie = "support-russia";
   let days_of_cookie_live_1st_scenario = 7;
   let days_of_cookie_live_2nd_scenario = 3;
+  let days_of_cookie_live_2nd_scenario_not_regret = 30;
   let locationCameFrom = window.location;
   let domain = "domain=customfw.xyz; path=/; samesite=strict";
 
@@ -28,6 +29,9 @@ ready(() => {
   ).toUTCString();
   let date_2nd_scenario = new Date(
     Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario
+  ).toUTCString();
+  let date_2nd_scenario_not_regret = new Date(
+    Date.now() + 86400e3 * days_of_cookie_live_2nd_scenario_not_regret
   ).toUTCString();
 
   function moveToPage(location) {
@@ -46,13 +50,13 @@ ready(() => {
   document.querySelector("html").classList.add("hide-scroll");
 
   // cookie functions
-  function addCookie(name) {
+  function addCookie(name, date_scenario) {
     document.cookie =
       name +
       "=" +
       locationCameFrom +
       "; expires=" +
-      date_2nd_scenario +
+      date_scenario +
       ";" +
       domain;
   }
@@ -154,7 +158,7 @@ ready(() => {
     .querySelector(".popup-modal-support-ukraine")
     .addEventListener("click", (e) => {
       e.preventDefault();
-      addCookie(scenario1_cookie);
+      addCookie(scenario1_cookie, date_1st_scenario);
       // change frame 1 to frame 2 after link 2 on 1st frame was pressed
       document.getElementById("frame1").style.display = "none";
       document.getElementById("frame2").style.display = "block";
@@ -166,7 +170,7 @@ ready(() => {
     .querySelector(".popup-modal-support-russia")
     .addEventListener("click", (e) => {
       e.preventDefault();
-      addCookie(scenario2_cookie);
+      addCookie(scenario2_cookie, date_2nd_scenario);
       moveToPage(scenario2_link);
     });
   // close popup
@@ -201,9 +205,24 @@ ready(() => {
 
   let regret_message = `
   <center class="notice--success"><a id="i_regret" style="cursor: pointer;">Я понял, что был не прав и больше не поддерживаю захватническую войну в соседнем государстве</a></center>
+  <center class="notice--danger"><a id="i_not_regret" style="cursor: pointer;">Я по прежнему считаю, что войну нужно продолжать</a></center>
   `;
   if (document.querySelector("#regret")) {
     document.querySelector("#regret").innerHTML = regret_message;
+
+    document.getElementById("i_not_regret").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (getCookie(scenario1_cookie)) {
+        let page_to_move = getCookie(scenario1_cookie)
+        removeCookie(scenario1_cookie);
+        moveToPage(page_to_move);
+      }
+      if (getCookie(scenario2_cookie)) {
+        removeCookie(scenario2_cookie);
+      }
+      addCookie(scenario2_cookie, date_2nd_scenario_not_regret);
+    });
+
     document.getElementById("i_regret").addEventListener("click", (e) => {
       e.preventDefault();
       if (getCookie(scenario1_cookie)) {

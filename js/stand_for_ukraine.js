@@ -204,6 +204,7 @@ ready(() => {
   });
 
   let regret_message = `
+  <hr>
   <center class="notice--success"><a id="i_regret" style="cursor: pointer;">Я понял, что был не прав и больше не поддерживаю захватническую войну в соседнем государстве</a></center>
   <center class="notice--danger"><a id="i_not_regret" style="cursor: pointer;">Я по прежнему считаю, что войну нужно продолжать</a></center>
   `;

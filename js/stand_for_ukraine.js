@@ -221,6 +221,7 @@ ready(() => {
         removeCookie(scenario2_cookie);
       }
       addCookie(scenario2_cookie, date_2nd_scenario_not_regret);
+      moveToPage('https://natribu.org/');
     });
 
     document.getElementById("i_regret").addEventListener("click", (e) => {

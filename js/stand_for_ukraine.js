@@ -340,7 +340,15 @@ function addPopup() {
                     href="https://war.ukraine.ua/ru/podderzhyte-ukraynu/"
                     target="_blank"
                     >war.ukraine.ua</a
-                  >
+                  > 
+                </li>
+                <li>
+                  Еще список ресурсов для помощи (в том числе беженцам, животным, помощь с наёмом украинцев)
+                  <a
+                    href="https://github.com/IgorVaryvoda/Help-Ukraine"
+                    target="_blank"
+                    >Help-Ukraine</a
+                  > 
                 </li>
                 <li>
                   Вы можете помочь в распространении правды о войне в Украине.

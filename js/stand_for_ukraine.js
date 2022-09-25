@@ -264,6 +264,25 @@ function addPopup() {
                 >🇺🇦</g-emoji
               >
             </h1>
+            <h2>
+              <g-emoji
+              class="g-emoji"
+              alias="ukraine"
+              fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f1fa-1f1e6.png"
+              >🇺🇦</g-emoji>
+                НЕ ИДИТЕ ВОЕВАТЬ В УКРАИНУ! Вас там убьют!
+              <g-emoji
+              class="g-emoji"
+              alias="ukraine"
+              fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f1fa-1f1e6.png"
+              >🇺🇦</g-emoji>
+            </h2>
+
+            <ul>
+              <li><a href="https://www.youtube.com/watch?v=X39ZkynPjpQ" target="_blank">Как избежать мобилизации</a></li>
+              <li><a href="https://t.me/hochu_zhyt/4" target="_blank">Как сдаться в плен</a></li>
+              <li><a href="https://www.youtube.com/watch?v=teB8NVagI7c" target="_blank">Условия проживания пленных в Украине</a> и <a href="https://www.youtube.com/c/VolodymyrZolkin/videos" target="_blank">интервью с ними</a></li>
+            </ul>
 
             <!-- //first frame of the popup -->
             <div id="frame1">

@@ -280,7 +280,7 @@ function addPopup() {
 
             <div class="notice--danger">
               <ul>
-                <li><a href="https://www.youtube.com/watch?v=X39ZkynPjpQ" target="_blank">Как избежать мобилизации</a></li>
+                <li><a href="https://www.youtube.com/watch?v=8aJ282tD9us" target="_blank">ВЫ НЕ СМОЖЕТЕ ИЗБЕЖАТЬ МОБИЛИЗАЦИИ! Подробности новой системы призыва</a></li>
                 <li><a href="https://t.me/hochu_zhyt/4" target="_blank">Как сдаться в плен</a></li>
                 <li><a href="https://www.youtube.com/watch?v=teB8NVagI7c" target="_blank">Условия проживания пленных в Украине</a> и <a href="https://www.youtube.com/c/VolodymyrZolkin/videos" target="_blank">интервью с ними</a></li>
               </ul>
